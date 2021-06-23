@@ -1,0 +1,428 @@
+@import "./vendor/normalize";
+@import "./app/variables";
+@import "./app/keyframes";
+
+html, body
+{
+    width: 100%;
+    height: 100%;
+}
+body
+{
+    width: 100%;
+    height: 100%;
+    image-rendering: crisp-edges;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    font-family: $font;
+    font-size: $font-size;
+    background: $bgColor;
+}
+*{
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+#root
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .preloading
+    {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+
+        svg
+        {
+            width: 80px;
+            height: 80px;
+            fill: transparent;
+            transform: rotate(-90deg);
+
+            circle
+            {
+                animation: loop 3s ease-in-out infinite;
+                stroke: $mainColor;
+                stroke-width: 7px;
+                stroke-dasharray: 142px;
+                stroke-dashoffset: 283;
+            }
+        }
+    }
+
+    .wait
+    {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+
+        svg
+        {
+            width: 100%;
+            height: 100%;
+            fill: transparent;
+
+            circle
+            {
+                animation: loop 3s ease-in-out infinite;
+                stroke: white;
+                stroke-width: 3px;
+                stroke-dasharray: 142px;
+                stroke-dashoffset: 283;
+            }
+        }
+    }
+
+    .container
+    {
+        max-width: 980px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+
+        @media (min-width: 640px)
+        {
+            padding: 0;
+        }
+
+
+        header
+        {
+            width: 100%;
+            padding: 20px 0;
+
+            .brand
+            {
+                width: 150px;
+
+                img
+                {
+                    width: 100%;
+                }
+            }
+
+            h1
+            {
+                padding: 20px 0;
+                font-size: 2.5em;
+                color: $mainColor;
+                text-transform: uppercase;
+                font-weight: 300;
+
+            }
+        }
+
+        .wrapper
+        {
+            width: 100%;
+            display: flex;
+            flex-direction: column-reverse;
+            margin-bottom: 20px;
+
+            @media (min-width: 640px)
+            {
+                flex-direction: row;
+            }
+
+            &.left
+            {
+                align-items: flex-start;
+            }
+        }
+
+        .preview
+        {
+            position: relative;
+            width: 100%;
+            border: 1px dashed #CDCCCB;
+            overflow: hidden;
+            margin-top: 40px;
+
+            @media (min-width: 640px)
+            {
+                width: 512px;
+                height: 512px;
+                flex-shrink: 0;
+                margin-left: 40px;
+                margin-top: 0;
+            }
+
+            canvas
+            {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .form
+        {
+            flex-grow: 1;
+
+            .group-row
+            {
+                display: flex;
+                flex-direction: column;
+
+                @media (min-width: 640px)
+                {
+                    flex-direction: row;
+                    align-items: center;
+
+                    .input-group
+                    {
+                        margin-right: 10px;
+
+                        &:last-child
+                        {
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+
+            }
+
+            .input-group
+            {
+                position: relative;
+                width: 100%;
+                display: block;
+                margin: 10px 0;
+
+                &::after
+                {
+                    transition: all .6s cubic-bezier(.58,.22,0,1);
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0%;
+                    height: 1px;
+                    background: $mainColor;
+                }
+
+                &.focus
+                {
+                    &::after
+                    {
+                        width: 100%;
+                    }
+                }
+
+                &.background
+                {
+                    margin-bottom: 30px;
+
+                    .buttons-group
+                    {
+                        justify-content: flex-start;
+                    }
+
+                    label
+                    {
+                        margin-bottom: 10px;
+                    }
+                }
+
+                label
+                {
+                    display: block;
+                    font-size: 1.3em;
+                    font-weight: 300;
+                }
+
+                input, textarea
+                {
+                    width: 100%;
+                    display: block;
+                    padding: 5px 0;
+                    border: none;
+                    border-bottom: 1px solid $grayColor;
+                    background: none;
+                    font-size: 1.6em;
+                    font-weight: 400;
+                    color: $mainColor;
+                }
+
+                textarea
+                {
+                    height: 50px;
+                    resize: none;
+                }
+
+                .input-select
+                {
+                    width: 100%;
+                    border-bottom: 1px solid $grayColor;
+
+                    select
+                    {
+                        width: 100%;
+                        padding: 5px 0;
+                        border: none;
+                        font-size: 1.6em;
+                        font-weight: 400;
+                        color: $mainColor;
+                        background: none;
+                        -moz-appearance: none;
+                        -webkit-appearance: none;
+                        appearance: none;
+                    }
+                }
+            }
+
+            .buttons-group
+            {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                width: 80px;
+                flex-shrink: 0;
+            }
+
+            .templates
+            {
+                display: flex;
+                flex-direction: row;
+                padding: 5px 0;
+
+                .template
+                {
+                    transition: all .6s ease-in-out;
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    font-size: 1.6em;
+                    color: $mainColor;
+                    margin-right: 20px;
+                    padding: 3px;
+                    border: 1px solid $bgColor;
+                    border-radius: 3px;
+                    cursor: pointer;
+
+                    &.active
+                    {
+                        border-color: $mainColor;
+                    }
+
+                    &.template-A
+                    {
+                        span
+                        {
+                            background: #b3babf;
+                        }
+                    }
+
+                    &.template-B
+                    {
+                        span
+                        {
+                            background: linear-gradient( to left, $orangeColor 50%, $mainColor 50%);
+                        }
+                    }
+
+                    &.template-C
+                    {
+                        span
+                        {
+                            background:$mainColor;
+                        }
+                    }
+
+                    span
+                    {
+                        display: block;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 10px;
+                        margin-right: 10px;
+                        background: $mainColor;
+                    }
+                }
+            }
+
+            .photo
+            {
+                display: block;
+
+                input[type='file']
+                {
+                    display: none;
+                }
+
+                .buttons-group
+                {
+                    width: 130px;
+
+                }
+
+                .upload
+                {
+                    width: 40px;
+                    height: 40px;
+                    border: none;
+                    background: none;
+                    font-size: 1em;
+                    color: $mainColor;
+                    cursor: pointer;
+
+                    img
+                    {
+                        width: 100%;
+                        display: block;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+
+        .changeSize
+        {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            background: none;
+            border: none;
+            margin-left: 10px;
+            cursor: pointer;
+
+            img
+            {
+                width: 100%;
+            }
+        }
+
+        .download
+        {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 40px;
+            font-size: 1.5em;
+            color: white;
+            text-transform: uppercase;
+            background: $mainColor;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        h2
+        {
+            font-size: 1.8em;
+            color: $mainColor;
+            font-weight: 600;
+            padding: 20px 0 0 0;
+            margin: 0;
+        }
+    }
+}
